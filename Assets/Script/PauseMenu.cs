@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pausePanel; // Tarik Panel Pause ke sini
+    public GameObject pausePanel; 
     public bool isPaused = false;
 
     void Update()
@@ -18,21 +18,21 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pausePanel.SetActive(false); // Sembunyikan panel
-        Time.timeScale = 1f;         // JALANKAN WAKTU LAGI (Normal)
+        pausePanel.SetActive(false); 
+        Time.timeScale = 1f;         
         isPaused = false;
     }
 
     void Pause()
     {
-        pausePanel.SetActive(true);  // Munculkan panel
-        Time.timeScale = 0f;         // BEKUKAN WAKTU (Game berhenti)
+        pausePanel.SetActive(true); 
+        Time.timeScale = 0f;        
         isPaused = true;
     }
 
     public void LoadMenu()
     {
-        Time.timeScale = 1f;         // PENTING: Kembalikan waktu sebelum pindah scene
+        Time.timeScale = 1f;         
         SceneManager.LoadScene("MainMenu");
     }
 }

@@ -14,7 +14,6 @@ public class ScoreManager : MonoBehaviour
     {
         if (player != null && scoreText != null)
         {
-
             float currentHeight = player.position.y;
             scoreText.text = currentHeight.ToString("F2") + " m";
             scoreText.transform.position = player.position + offset;

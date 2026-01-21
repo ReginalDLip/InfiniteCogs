@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 22f;
 
     [Header("Audio")]
-    public AudioClip jumpSound; // Slot suara loncat
-    public AudioClip landSound; // Slot suara mendarat (BARU)
+    public AudioClip jumpSound;
+    public AudioClip landSound;
     private AudioSource audioSource;
 
     private Rigidbody2D rb;
@@ -24,17 +24,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         moveX = Input.GetAxisRaw("Horizontal");
-        
-        // PENTING: Gunakan 'velocity' jika Unity versi lama, 'linearVelocity' untuk Unity 6
         rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y);
 
-        // Input Loncat
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             Jump();
         }
-
-        // Membalik arah sprite
         if (moveX > 0) transform.localScale = new Vector3(1, 1, 1);
         else if (moveX < 0) transform.localScale = new Vector3(-1, 1, 1);
     }
@@ -44,8 +39,6 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
         rb.linearVelocity = Vector2.up * jumpForce;
         isGrounded = false;
-
-        // Mainkan Suara Loncat
         if (jumpSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(jumpSound);
@@ -59,19 +52,11 @@ public class PlayerMovement : MonoBehaviour
             // Cek titik kontak tabrakan
             foreach (ContactPoint2D contact in collision.contacts)
             {
-                // Jika normal.y > 0.5f artinya kita menabrak bagian ATAS (mendarat), bukan samping/bawah
                 if (contact.normal.y > 0.5f)
                 {
                     isGrounded = true;
-
-                    // --- LOGIKA SUARA MENDARAT ---
-                    // Syarat:
-                    // 1. Ada file suaranya
-                    // 2. AudioSource ada
-                    // 3. Nama objeknya BUKAN "StartGround" (Lantai paling bawah)
                     if (landSound != null && audioSource != null && collision.gameObject.name != "StartGround")
                     {
-                        // Ubah volume sedikit lebih kecil (0.5f) biar tidak berisik, atau hapus ", 0.5f" jika ingin keras
                         audioSource.PlayOneShot(landSound, 0.6f); 
                     }
                 }

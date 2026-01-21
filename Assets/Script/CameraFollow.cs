@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target; // Drag Player ke sini
-    public float smoothSpeed = 0.3f; // Kehalusan gerakan
-
+    public Transform target; 
+    public float smoothSpeed = 0.3f; 
     void LateUpdate()
     {
       
